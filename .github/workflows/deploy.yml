@@ -8,10 +8,6 @@ jobs:
    runs-on: ubuntu-20.04
 
    steps:
-     # main ブランチを取得する
-     - name: Checkout
-       uses: actions/checkout@v2
-
      # Node.js のセットアップをする
      - name: Setup Node
        uses: actions/setup-node@v2
@@ -30,6 +26,12 @@ jobs:
      # エクスポートする
      - name: export
       run: yarn export
+
+    # しかしGitHub Pagesの仕様として_から始まるディレクトリが見えず404となる
+    # つまりHTMLからJSを読み込めない
+    # これを回避するために.nojekyllファイルをoutディレクトリに作る
+     - name: add nojekyll
+      run: touch ./out/.nojekyll
 
      # GitHub Pages にデプロイする
      - name: Deploy
