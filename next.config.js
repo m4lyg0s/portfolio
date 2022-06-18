@@ -1,4 +1,6 @@
-module.exports = {
-  basePath: process.env.GITHUB_ACTIONS ? "/portfolio" : "",
-  trailingSlash: true,
-};
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+}
+
+module.exports = nextConfig
