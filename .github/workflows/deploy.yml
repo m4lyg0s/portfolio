@@ -6,36 +6,33 @@ on:
 jobs:
  build:
    runs-on: ubuntu-20.04
-
    steps:
-     # Node.js のセットアップをする
-     - name: Setup Node
-       uses: actions/setup-node@v2
-       with:
-         node-version: 14.x
-         cache: yarn
+   - uses: actions/checkout@v2
+  # Node.js のセットアップをする
+   - name: Setup Node
+     uses: actions/setup-node@v2
+     with:
+       node-version: 14.x
+       cache: yarn
 
-     # パッケージをインストールする
-     - name: Install dependencies
-       run: yarn --frozen-lockfile
+   # パッケージをインストールする
+   - name: Install dependencies
+     run: yarn --frozen-lockfile
 
-     # ビルドする
-     - name: Build
-       run: yarn build
+   # ビルドする
+   - name: Build
+     run: yarn build
 
-     # エクスポートする
-     - name: export
-      run: yarn export
+   # エクスポートする
+   - name: export
+    run: yarn export
 
-    # しかしGitHub Pagesの仕様として_から始まるディレクトリが見えず404となる
-    # つまりHTMLからJSを読み込めない
-    # これを回避するために.nojekyllファイルをoutディレクトリに作る
-     - name: add nojekyll
-      run: touch ./out/.nojekyll
+   - name: add nojekyll
+    run: touch ./out/.nojekyll
 
-     # GitHub Pages にデプロイする
-     - name: Deploy
-       uses: peaceiris/actions-gh-pages@v3
-       with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-         publish_dir: out
+   # GitHub Pages にデプロイする
+   - name: Deploy
+     uses: peaceiris/actions-gh-pages@v3
+     with:
+       github_token: ${{ secrets.GITHUB_TOKEN }}
+       publish_dir: out
