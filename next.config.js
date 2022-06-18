@@ -1,7 +1,8 @@
-/** @type {import('next').NextConfig} */
+const urlPrefix = '/portfolio'
 const nextConfig = {
   reactStrictMode: true,
-  assetPrefix: process.env.GITHUB_PAGES ? '/portfolio' : '',
+  assetPrefix: urlPrefix,
+  basePath: urlPrefix,
 }
 
 module.exports = nextConfig
